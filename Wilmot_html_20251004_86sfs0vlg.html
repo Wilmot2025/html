@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RITCHE MEDICINE STORE P.O.Box 215 Giah Town Robert field high way disco hill</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* Login Page */
+    #loginPage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(rgba(236, 240, 241, 0.9), rgba(236, 240, 241, 0.7)), 
+                  url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23e67e22" opacity="0.03"/></svg>');
+    }
+
+    .login-box {
+      background: white;
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      width: 350px;
+      text-align: center;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-box h2 {
+      color: #e67e22;
+      margin-bottom: 25px;
+      font-size: 24px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .login-box input:focus {
+      border-color: #e67e22;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.2);
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(to right, #e67e22, #d35400);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+      font-weight: 600;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .login-box button:hover {
+      background: linear-gradient(to right, #d35400, #c0392b);
+      transform: translateY(-2px);
+    }
+
+    .login-box button:active {
+      transform: translateY(0);
+    }
+
+    /* Main App */
+    #mainApp {
+      display: none;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(to right, #e67e22, #d35400);
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .store-name {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .user-info {
+      font-size: 16px;
+      opacity: 0.95;
+      margin-bottom: 8px;
+    }
+
+    .timestamp {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .container {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      padding: 25px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 14px;
+      padding: 25px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .panel:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .products {
+      flex: 2;
+      min-width: 320px;
+    }
+
+    .dashboard {
+      flex: 1;
+      min-width: 320px;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #2c3e50;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2 i {
+      color: #e67e22;
+    }
+
+    h3 {
+      color: #34495e;
+      margin: 20px 0 15px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .product-card {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      background: #fdfdfd;
+      transition: all 0.3s;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-color: #e67e22;
+    }
+
+    .product-card h4 {
+      margin: 12px 0 8px;
+      font-size: 16px;
+      color: #2c3e50;
+    }
+
+    .product-card p.type {
+      margin: 5px 0;
+      font-size: 13px;
+      color: #7f8c8d;
+      font-style: italic;
+    }
+
+    .product-card p.price {
+      margin: 8px 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #27ae60;
+    }
+
+    button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: scale(1.03);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .edit-btn {
+      background: #f39c12;
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .disabled-btn {
+      background: #bdc3c7;
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none !important;
+    }
+
+    .logout-btn,
+    .change-pass-btn,
+    .export-btn,
+    .print-receipt-btn,
+    .add-product-btn {
+      padding: 10px 18px;
+      font-size: 15px;
+      margin-top: 12px;
+      width: auto;
+      border-radius: 8px;
+    }
+
+    .logout-btn {
+      background: linear-gradient(to right, #e74c3c, #c0392b);
+    }
+
+    .change-pass-btn {
+      background: linear-gradient(to right, #9b59b6, #8e44ad);
+    }
+
+    .export-btn {
+      background: linear-gradient(to right, #2ecc71, #27ae60);
+    }
+
+    .print-receipt-btn {
+      background: linear-gradient(to right, #1abc9c, #16a085);
+    }
+
+    .add-product-btn {
+      background: linear-gradient(to right, #2980b9, #3498db);
+    }
+
+    .kpi {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background 0.2s;
+    }
+
+    .kpi:hover {
+      background: #f9f9f9;
+      border-radius: 8px;
+    }
+
+    .kpi-value {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .kpi.highest .kpi-value {
+      color: #2ecc71;
+    }
+
+    .kpi.lowest .kpi-value {
+      color: #e74c3c;
+    }
+
+    .sales-log,
+    .audit-log {
+      margin-top: 15px;
+      max-height: 120px;
+      overflow-y: auto;
+      font-size: 14px;
+      background: #f8f9fa;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .sales-log div,
+    .audit-log div {
+      padding: 6px 0;
+      border-bottom: 1px dashed #e0e0e0;
+      font-size: 13px;
+    }
+
+    .sales-log div:last-child,
+    .audit-log div:last-child {
+      border-bottom: none;
+    }
+
+    .add-form {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f1f8ff;
+      border-radius: 12px;
+      display: none;
+      border: 1px solid #d0e3f0;
+    }
+
+    .add-form input,
+    .add-form select {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .add-form button {
+      margin-top: 15px;
+      padding: 10px;
+      background: #27ae60;
+      width: 100%;
+    }
+
+    .chart-container {
+      height: 220px;
+      margin-top: 15px;
+      position: relative;
+    }
+
+    /* Print Styles */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+
+      #receipt,
+      #receipt * {
+        visibility: visible;
+      }
+
+      #receipt {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        font-size: 14px;
+        background: white;
+        padding: 25px;
+        box-sizing: border-box;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+        flex-direction: column;
+      }
+      
+      .login-box {
+        width: 90%;
+        padding: 25px;
+      }
+      
+      .store-name {
+        font-size: 26px;
+      }
+      
+      .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 15px;
+      }
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2ecc71;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transform: translateX(200%);
+      transition: transform 0.4s ease;
+      z-index: 1000;
+      font-weight: 500;
+    }
+
+    #toast.show {
+      transform: translateX(0);
+    }
+
+    .notification-error {
+      background: #e74c3c;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast">Notification</div>
+
+  <!-- LOGIN PAGE -->
+  <div id="loginPage">
+    <div class="login-box">
+      <h2><i class="fas fa-pills"></i> RITCHE STORE LOGIN</h2>
+      <input type="text" id="username" placeholder="Username (user or manager)" autocomplete="off" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="attemptLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+    </div>
+  </div>
+
+  <!-- RECEIPT TEMPLATE -->
+  <div id="receipt" style="display:none;">
+    <div style="text-align: center; margin-bottom: 15px;">
+      <h2 style="margin: 0; color: #e67e22;">RITCHE MEDICINE STORE</h2>
+      <p style="margin: 5px 0; font-size: 14px;">Your Trusted Health Partner</p>
+    </div>
+    <p><strong>Date:</strong> <span id="receipt-date"></span></p>
+    <p><strong>Time:</strong> <span id="receipt-time"></span></p>
+    <p><strong>Sold by:</strong> <span id="receipt-user"></span></p>
+    <hr style="margin: 15px 0;">
+    <p><strong>Item:</strong> <span id="receipt-item"></span></p>
+    <p><strong>Price:</strong> $<span id="receipt-price"></span></p>
+    <hr style="margin: 15px 0;">
+    <p style="text-align: center; margin-top: 20px; font-style: italic;">Thank you for your purchase!</p>
+    <p style="text-align: center; font-size: 12px; color: #7f8c8d;">Have a healthy day!</p>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="mainApp">
+    <div class="header">
+      <div class="store-name">RITCHE MEDICINE STORE</div>
+      <div class="user-info" id="userInfo"></div>
+      <div class="timestamp" id="currentDateTime"></div>
+    </div>
+
+    <div class="container">
+      <div class="panel products">
+        <h2><i class="fas fa-capsules"></i> Products</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;">
+          <button class="logout-btn" onclick="logout()"><i class="fas fa-door-open"></i> Logout</button>
+          <button class="change-pass-btn" onclick="changePassword()"><i class="fas fa-key"></i> Change Password</button>
+          <button class="export-btn" onclick="exportSalesCSV()"><i class="fas fa-file-csv"></i> Export Sales</button>
+        </div>
+
+        <div id="addProductBtn" style="margin-top:15px;"></div>
+
+        <div class="add-form" id="addForm">
+          <h3 style="margin-top: 0; color: #2c3e50;"><i class="fas fa-plus-circle"></i> Add New Product</h3>
+          <input type="text" id="newProductName" placeholder="Product Name" required />
+          <select id="newProductType">
+            <option value="Medication">Medication</option>
+            <option value="Goods">Goods</option>
+            <option value="Supplement">Supplement</option>
+          </select>
+          <input type="number" id="newProductPrice" step="0.01" min="0" placeholder="Price ($)" required />
+          <button onclick="addNewProduct()"><i class="fas fa-plus"></i> Add Product</button>
+        </div>
+
+        <div class="product-list" id="productList"></div>
+      </div>
+
+      <div class="panel dashboard">
+        <h2><i class="fas fa-chart-line"></i> Sales Dashboard</h2>
+        <div class="kpi">
+          <span>Today's Sales:</span>
+          <span class="kpi-value" id="todaySales">$0.00</span>
+        </div>
+        <div class="kpi highest">
+          <span>Highest Daily Sales:</span>
+          <span class="kpi-value" id="highestSales">$0.00</span>
+        </div>
+        <div class="kpi lowest">
+          <span>Lowest Daily Sales:</span>
+          <span class="kpi-value" id="lowestSales">$0.00</span>
+        </div>
+        <div class="kpi">
+          <span>Total Revenue:</span>
+          <span class="kpi-value" id="totalRevenue">$0.00</span>
+        </div>
+
+        <h3><i class="fas fa-trend-up"></i> Daily Sales Trend</h3>
+        <div class="chart-container">
+          <canvas id="salesChart"></canvas>
+        </div>
+
+        <h3><i class="fas fa-receipt"></i> Recent Sales</h3>
+        <div class="sales-log" id="salesLog"></div>
+
+        <h3><i class="fas fa-history"></i> Audit Log</h3>
+        <div class="audit-log" id="auditLog"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== ENHANCED USER SYSTEM =====
+    let users = JSON.parse(localStorage.getItem('ritche_users')) || {
+      "user": { password: "1234", role: "salesperson" },
+      "manager": { password: "1234", role: "manager" }
+    };
+    let currentUser = null;
+    let lastActivity = Date.now();
+    const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+
+    // Track activity for auto-logout
+    document.addEventListener('click', () => lastActivity = Date.now());
+    document.addEventListener('keypress', () => lastActivity = Date.now());
+    document.addEventListener('mousemove', () => lastActivity = Date.now());
+
+    function checkSession() {
+      if (currentUser && (Date.now() - lastActivity > SESSION_TIMEOUT)) {
+        showToast("Session expired. Please log in again.", "error");
+        logout();
+      }
+    }
+    setInterval(checkSession, 60000);
+
+    // Toast Notification System
+    function showToast(message, type = "success") {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = "show";
+      if (type === "error") {
+        toast.classList.add('notification-error');
+      } else {
+        toast.classList.remove('notification-error');
+      }
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // ✅ ENHANCED LOGIN FUNCTION
+    function attemptLogin() {
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value;
+      const user = users[u];
+
+      if (user && user.password === p) {
+        currentUser = { name: u, role: user.role };
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('mainApp').style.display = 'block';
+        document.getElementById('userInfo').textContent = `Logged in as: ${u} (${user.role})`;
+        loadAppData();
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+        lastActivity = Date.now();
+        showToast(`Welcome back, ${u}!`);
+      } else {
+        showToast("Invalid username or password. Try: user/1234 or manager/1234", "error");
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+      }
+    }
+
+    function logout() {
+      currentUser = null;
+      document.getElementById('mainApp').style.display = 'none';
+      document.getElementById('loginPage').style.display = 'flex';
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+      if (salesChart) salesChart.destroy();
+    }
+
+    function changePassword() {
+      const newPassword = prompt("Enter new password (min 4 characters):");
+      if (!newPassword || newPassword.length < 4) {
+        showToast("Password must be at least 4 characters.", "error");
+        return;
+      }
+      users[currentUser.name].password = newPassword;
+      localStorage.setItem('ritche_users', JSON.stringify(users));
+      showToast("Password changed successfully!");
+    }
+
+    // ===== DATE & TIME =====
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hour12: true
+      };
+      document.getElementById('currentDateTime').textContent = now.toLocaleString('en-US', options);
+    }
+
+    // ===== DATA MANAGEMENT =====
+    function getToday() {
+      return new Date().toISOString().split('T')[0];
+    }
+
+    function logAudit(action) {
+      const audit = {
+        time: new Date().toISOString(),
+        user: currentUser.name,
+        role: currentUser.role,
+        action: action
+      };
+      let auditLog = JSON.parse(localStorage.getItem('ritche_audit') || '[]');
+      auditLog.unshift(audit);
+      if (auditLog.length > 100) auditLog = auditLog.slice(0, 100);
+      localStorage.setItem('ritche_audit', JSON.stringify(auditLog));
+      renderAuditLog(auditLog);
+    }
+
+    function loadAppData() {
+      const savedProducts = localStorage.getItem('ritche_products');
+      const savedSales = localStorage.getItem('ritche_sales');
+      const auditLog = JSON.parse(localStorage.getItem('ritche_audit') || '[]');
+
+      window.products = savedProducts ? JSON.parse(savedProducts) : [
+        { id: 1, name: "Paracetamol", type: "Medication", price: 5.99 },
+        { id: 2, name: "Ibuprofen", type: "Medication", price: 6.49 },
+        { id: 3, name: "Vitamin C", type: "Supplement", price: 8.99 },
+        { id: 4, name: "Bottle of Water", type: "Goods", price: 1.50 },
+        { id: 5, name: "Energy Bar", type: "Goods", price: 2.25 },
+        { id: 6, name: "Hand Sanitizer", type: "Goods", price: 3.75 },
+        { id: 7, name: "Multivitamins", type: "Supplement", price: 12.99 },
+        { id: 8, name: "Cough Syrup", type: "Medication", price: 7.50 }
+      ];
+      window.nextId = Math.max(...products.map(p => p.id), 0) + 1;
+      window.allSales = savedSales ? JSON.parse(savedSales) : [];
+
+      // Show/hide add button based on role
+      const btnContainer = document.getElementById('addProductBtn');
+      if (currentUser.role === 'manager') {
+        btnContainer.innerHTML = '<button class="add-product-btn" onclick="toggleAddForm()"><i class="fas fa-plus"></i> Add New Product</button>';
+      } else {
+        btnContainer.innerHTML = '';
+      }
+
+      renderProducts();
+      updateDashboard();
+      renderAuditLog(auditLog);
+    }
+
+    function saveData() {
+      localStorage.setItem('ritche_products', JSON.stringify(products));
+      localStorage.setItem('ritche_sales', JSON.stringify(allSales));
+    }
+
+    // ===== PRINT RECEIPT =====
+    function printReceipt(sale) {
+      document.getElementById('receipt-date').textContent = sale.date;
+      document.getElementById('receipt-time').textContent = sale.time;
+      document.getElementById('receipt-user').textContent = currentUser.name;
+      document.getElementById('receipt-item').textContent = sale.productName;
+      document.getElementById('receipt-price').textContent = sale.price.toFixed(2);
+
+      document.getElementById('receipt').style.display = 'block';
+      window.print();
+      document.getElementById('receipt').style.display = 'none';
+    }
+
+    // ===== RENDER PRODUCTS =====
+    function renderProducts() {
+      const list = document.getElementById('productList');
+      list.innerHTML = '';
+      
+      if (products.length === 0) {
+        list.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px; color: #7f8c8d;">No products available</div>';
+        return;
+      }
+      
+      products.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+
+        let addBtn = '';
+        let editBtn = '';
+
+        // BOTH roles can add sales
+        addBtn = `<button onclick="handleAddSale(${p.id})"><i class="fas fa-cart-plus"></i> Add to Sale</button>`;
+
+        // ONLY manager can edit prices
+        if (currentUser.role === 'manager') {
+          editBtn = `<button class="edit-btn" onclick="editPrice(${p.id})"><i class="fas fa-edit"></i> Edit Price</button>`;
+        } else {
+          editBtn = `<button class="disabled-btn" disabled><i class="fas fa-lock"></i> Edit Price</button>`;
+        }
+
+        card.innerHTML = `
+          <h4>${p.name}</h4>
+          <p class="type">${p.type}</p>
+          <p class="price">$${p.price.toFixed(2)}</p>
+          ${addBtn}
+          ${editBtn}
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    // ===== BUSINESS LOGIC =====
+    window.handleAddSale = function (productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const sale = {
+        id: Date.now(),
+        productId,
+        productName: product.name,
+        price: product.price,
+        date: getToday(),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+
+      allSales.push(sale);
+      saveData();
+      logAudit(`Added sale: ${product.name} ($${product.price})`);
+      updateDashboard();
+
+      if (confirm("🖨️ Print receipt for this sale?")) {
+        printReceipt(sale);
+      }
+      
+      showToast(`Sale added: ${product.name} - $${product.price.toFixed(2)}`);
+    };
+
+    window.editPrice = function (productId) {
+      if (currentUser.role !== 'manager') return;
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      const newPrice = prompt(`Enter new price for "${product.name}" (Current: $${product.price.toFixed(2)})`, product.price);
+      if (newPrice !== null && !isNaN(newPrice) && parseFloat(newPrice) >= 0) {
+        const oldPrice = product.price;
+        product.price = parseFloat(newPrice);
+        saveData();
+        logAudit(`Edited price of "${product.name}" from $${oldPrice} to $${newPrice}`);
+        renderProducts();
+        showToast(`Price updated to $${product.price.toFixed(2)}`);
+      } else if (newPrice !== null) {
+        showToast("Invalid price entered.", "error");
+      }
+    };
+
+    window.addNewProduct = function () {
+      if (currentUser.role !== 'manager') {
+        showToast("Only managers can add new products.", "error");
+        return;
+      }
+      const name = document.getElementById('newProductName').value.trim();
+      const type = document.getElementById('newProductType').value;
+      const price = parseFloat(document.getElementById('newProductPrice').value);
+      
+      if (!name || name.length < 2) {
+        showToast("Product name must be at least 2 characters.", "error");
+        return;
+      }
+      
+      if (isNaN(price) || price < 0) {
+        showToast("Please enter a valid price (0 or higher).", "error");
+        return;
+      }
+      
+      products.push({ id: nextId++, name, type, price });
+      saveData();
+      logAudit(`Added new product: "${name}" ($${price})`);
+      renderProducts();
+      
+      // Reset form
+      document.getElementById('newProductName').value = '';
+      document.getElementById('newProductPrice').value = '';
+      toggleAddForm();
+      showToast(`New product added: ${name}`);
+    };
+
+    window.toggleAddForm = function () {
+      const f = document.getElementById('addForm');
+      f.style.display = f.style.display === 'none' ? 'block' : 'none';
+    };
+
+    // ===== DASHBOARD =====
+    let salesChart = null;
+    function updateDashboard() {
+      const today = getToday();
+      const todaySales = allSales
+        .filter(s => s.date === today)
+        .reduce((sum, s) => sum + s.price, 0);
+
+      const dailyTotals = {};
+      allSales.forEach(s => {
+        dailyTotals[s.date] = (dailyTotals[s.date] || 0) + s.price;
+      });
+
+      const dates = Object.keys(dailyTotals).sort();
+      const values = dates.map(d => dailyTotals[d]);
+
+      const highest = values.length ? Math.max(...values).toFixed(2) : "0.00";
+      const lowest = values.length ? Math.min(...values).toFixed(2) : "0.00";
+      const totalRevenue = allSales.reduce((sum, s) => sum + s.price, 0).toFixed(2);
+
+      document.getElementById('todaySales').textContent = `$${todaySales.toFixed(2)}`;
+      document.getElementById('highestSales').textContent = `$${highest}`;
+      document.getElementById('lowestSales').textContent = `$${lowest}`;
+      document.getElementById('totalRevenue').textContent = `$${totalRevenue}`;
+
+      const logEl = document.getElementById('salesLog');
+      const recent = allSales.slice(-10).reverse();
+      logEl.innerHTML = recent.length
+        ? recent.map(s => `<div>[${s.time}] ${s.productName} - $${s.price.toFixed(2)}</div>`).join('')
+        : "<div>No sales yet.</div>";
+
+      renderChart(dates, values);
+    }
+
+    function renderChart(labels, data) {
+      const ctx = document.getElementById('salesChart').getContext('2d');
+      if (salesChart) salesChart.destroy();
+
+      // Format labels to be more readable
+      const formattedLabels = labels.map(d => {
+        const date = new Date(d);
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      });
+
+      salesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: formattedLabels,
+          datasets: [{
+            label: 'Daily Sales ($)',
+            data: data,
+            backgroundColor: 'rgba(52, 152, 219, 0.7)',
+            borderColor: 'rgba(41, 128, 185, 1)',
+            borderWidth: 1,
+            borderRadius: 4,
+            hoverBackgroundColor: 'rgba(52, 152, 219, 0.9)'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { 
+              display: false 
+            },
+            tooltip: {
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              titleFont: { size: 14 },
+              bodyFont: { size: 13 },
+              padding: 10,
+              displayColors: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return '$' + value;
+                }
+              },
+              grid: {
+                color: 'rgba(0, 0, 0, 0.05)'
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            }
+          },
+          animation: {
+            duration: 1000,
+            easing: 'easeOutQuart'
+          }
+        }
+      });
+    }
+
+    // ===== EXPORT CSV WITH DAILY TOTALS =====
+    window.exportSalesCSV = function () {
+      if (allSales.length === 0) {
+        showToast("No sales to export.", "error");
+        return;
+      }
+
+      // Group sales by date
+      const dailySales = {};
+      allSales.forEach(sale => {
+        if (!dailySales[sale.date]) {
+          dailySales[sale.date] = {
+            items: [],
+            total: 0
+          };
+        }
+        dailySales[sale.date].items.push(sale);
+        dailySales[sale.date].total += sale.price;
+      });
+
+      // Build CSV content
+      let csv = "Date,Time,Product,Price\n";
+
+      // Add individual sales
+      allSales.forEach(sale => {
+        csv += `"${sale.date}","${sale.time}","${sale.productName}",${sale.price}\n`;
+      });
+
+      // Add daily totals section
+      csv += "\n=== DAILY SALES TOTALS ===\n";
+      csv += "Date,Total Sales ($)\n";
+      Object.keys(dailySales).sort().forEach(date => {
+        csv += `"${date}",${dailySales[date].total.toFixed(2)}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `RITCHE_SALES_${getToday()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      logAudit("Exported sales report with daily totals to CSV");
+      showToast("Sales data exported successfully!");
+    };
+
+    function renderAuditLog(auditLog) {
+      const el = document.getElementById('auditLog');
+      el.innerHTML = auditLog.slice(0, 10).map(a => {
+        const time = new Date(a.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return `<div>[${time}] <strong>${a.user}</strong> (${a.role}): ${a.action}</div>`;
+      }).join('') || "<div>No audit records.</div>";
+    }
+  </script>
+</body>
+
+</html>
